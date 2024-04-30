@@ -59,7 +59,7 @@ const Register = () => {
                 <FormInput
                   name="email"
                   type="text"
-                  label=" Email"
+                  label="Email"
                   placeholder="Type your email here"
                   value={formik.values.email}
                   error={formik.errors.email}
@@ -72,7 +72,7 @@ const Register = () => {
                   name="password"
                   type="password"
                   label="Password"
-                  placeholder="Type your Passwordpassword here"
+                  placeholder="Type your Password here"
                   value={formik.values.password}
                   error={formik.errors.password}
                   isError={
