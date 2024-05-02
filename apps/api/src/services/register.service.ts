@@ -4,7 +4,7 @@ import { User } from "@prisma/client"
 
 
 
-export const registerservice = async (
+export const registerService = async (
     body: Pick<User, "email" | "fullName" | "password">
 ): Promise<User> => {
     try {
