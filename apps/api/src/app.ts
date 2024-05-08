@@ -9,10 +9,11 @@ import express, {
 import cors from 'cors';
 import { PORT } from './config';
 import { SampleRouter } from './routers/sample.router';
-import { Authrouter } from './routers/auth.router';
-
+import {  Authrouter } from './routers/auth.router';
+import { Blogrouter } from './routers/blog.router';
+import { join } from 'path'
 export default class App {
-  private app: Express;
+  readonly app: Express;
 
   constructor() {
     this.app = express();
@@ -25,13 +26,15 @@ export default class App {
     this.app.use(cors());
     this.app.use(json());
     this.app.use(urlencoded({ extended: true }));
+    this.app.use("/api/assets", static_(join(__dirname,'../public')))
   }
 
   private handleError(): void {
     // not found
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       if (req.path.includes('/api/')) {
-        res.status(404).send('Not found !');
+        // 404
+        res.status(500).send('Not found !');
       } else {
         next();
       }
@@ -41,7 +44,7 @@ export default class App {
     this.app.use(
       (err: Error, req: Request, res: Response, next: NextFunction) => {
         if (req.path.includes('/api/')) {
-          console.error('Error : ', err.stack);
+          // console.error('Error : ', err.stack);
           res.status(500).send(err.message);
         } else {
           next();
@@ -53,13 +56,15 @@ export default class App {
   private routes(): void {
     const sampleRouter = new SampleRouter();
     const authRouter = new Authrouter();
+    const blogRouter = new Blogrouter();
 
     this.app.get('/api', (req: Request, res: Response) => {
-      res.send(`Hello, Welcom to Blog API!`);
+      res.send(`Hello, Welcome to Blog API !`);
     });
 
     this.app.use('/api/samples', sampleRouter.getRouter());
     this.app.use('/api/auth', authRouter.getRouter());
+    this.app.use('/api/blogs', blogRouter.getRouter());
   }
 
   public start(): void {

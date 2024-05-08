@@ -30,3 +30,18 @@ model User {
 
   @@map("users") // if you want to use snake_case format
 }
+
+model Blog {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String @db.LongText()
+  category    String
+  content     String @db.LongText()
+  thumbnail   String
+
+  deletedAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("blogs")
+}

@@ -1,6 +1,6 @@
 'use client';
 
-import { axiosInstance } from '@/app/lib/axios';
+import { axiosInstance } from '@/lib/axios';
 import { useAppDispatch } from '@/redux/hooks';
 import { loginAction } from '@/redux/slices/userSlice';
 import { User } from '@/types/user.type';
