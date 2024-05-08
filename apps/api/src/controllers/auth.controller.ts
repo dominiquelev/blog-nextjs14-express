@@ -1,5 +1,6 @@
-import { loginService } from '@/services/login.service';
-import { registerService } from '@/services/register.service';
+import { loginService } from '@/services/auth/login.service';
+import { registerService } from '@/services/auth/register.service';
+import { resetPasswordService } from '@/services/auth/reset-password.service';
 import { NextFunction, Request, Response } from 'express';
 
 
@@ -22,7 +23,27 @@ export class AuthController {
             next(error)
         }
     }
+    async forgotPassword(req: Request, res: Response, next: NextFunction) {
+        try {
+            
+            // const result = await forgotPasswordService(req.body.email);
+            res.status(200).send();
 
+        } catch (error) {
+            next(error)
+        }
+    }
+    async resetPasswordController(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = Number(req.body.user.id);
+            const password = req.body.password;
+            const result = await resetPasswordService(userId, password);
+            res.status(200).send(result);
+
+        } catch (error) {
+            next(error)
+        }
+    }
 
 }
 

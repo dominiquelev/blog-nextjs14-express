@@ -1,6 +1,6 @@
 'use client';
 
-import { axiosInstance } from '@/app/lib/axios';
+import { axiosInstance } from '@/lib/axios';
 import { User } from '@/types/user.type';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ const useRegister = () => {
 
       router.push('/login');
     } catch (error) {
-      if(error instanceof AxiosError){
+      if (error instanceof AxiosError) {
         alert(JSON.stringify(error.response));
       }
     }
